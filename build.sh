@@ -85,7 +85,7 @@ for arg in "$@"; do
 			;;
 		-s|--su)
 			ENABLE_KSU=true
-			ZIPNAME="${ZIPNAME/Azure-surya/Azure-KSU-surya}"
+			ZIPNAME="${ZIPNAME/Azure-surya/Azure-KSU+SuSFS-surya}"
 			;;
 		*)
 			echo "Unknown argument: $arg"
