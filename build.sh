@@ -4,7 +4,7 @@
 # Copyright (C) 2020-2021 Adithya R.
 
 SECONDS=0 # builtin bash timer
-ZIPNAME="Oxygen:[NahidaGuehh].zip"
+ZIPNAME="Oxygen-$(date +%y%m%d-%H%M).zip"
 TC_DIR="$(pwd)/tc/clang-20"
 AK3_DIR="$(pwd)/android/AnyKernel3"
 DEFCONFIG="surya_defconfig"
@@ -51,11 +51,11 @@ sync_repo() {
 }
 
 if [[ $1 = "-u" || $1 = "--update" ]]; then
-    sync_repo $AK3_DIR "https://github.com/rd-stuffs/AnyKernel3.git" "FSociety" true
+    sync_repo $AK3_DIR "https://github.com/Yuddciel/AnyKernel3.git" "FSociety" true
     sync_repo $TC_DIR "https://bitbucket.org/rdxzv/clang-standalone.git" "20" true
 	exit
 else
-    sync_repo $AK3_DIR "https://github.com/rd-stuffs/AnyKernel3.git" "FSociety" false
+    sync_repo $AK3_DIR "https://github.com/Yuddciel/AnyKernel3.git" "FSociety" false
     sync_repo $TC_DIR "https://bitbucket.org/rdxzv/clang-standalone.git" "20" false
 fi
 
@@ -138,52 +138,3 @@ else
 	echo -e "\nCompilation failed!"
 	exit 1
 fi
-
-# Telegram
-CHATID="-1002354747626" # Group/channel chatid (use rose/userbot to get it)
-TELEGRAM_TOKEN="7485743487:AAEKPw9ubSKZKit9BDHfNJSTWcWax4STUZs"
-
-# Export Telegram.sh
-TELEGRAM_FOLDER="${HOME}"/telegram
-if ! [ -d "${TELEGRAM_FOLDER}" ]; then
-    git clone https://github.com/fabianonline/telegram.sh/ "${TELEGRAM_FOLDER}"
-fi
-
-TELEGRAM="${TELEGRAM_FOLDER}"/telegram
-tg_cast() {
-	curl -s -X POST https://api.telegram.org/bot"$TELEGRAM_TOKEN"/sendMessage -d disable_web_page_preview="true" -d chat_id="$CHATID" -d "parse_mode=MARKDOWN" -d text="$(
-		for POST in "${@}"; do
-			echo "${POST}"
-		done
-	)" &> /dev/null
-}
-tg_ship() {
-    "${TELEGRAM}" -f "${ZIPNAME}" -t "${TELEGRAM_TOKEN}" -c "${CHATID}" -H \
-    "$(
-                for POST in "${@}"; do
-                        echo "${POST}"
-                done
-    )"
-}
-tg_fail() {
-    "${TELEGRAM}" -f "${LOGS}" -t "${TELEGRAM_TOKEN}" -c "${CHATID}" -H \
-    "$(
-                for POST in "${@}"; do
-                        echo "${POST}"
-                done
-    )"
-}
-
-    # Ship it to the CI channel
-    tg_ship "<b>-------- $DRONE_BUILD_NUMBER Build Succeed --------</b>" \
-            "" \
-            "<b>Device:</b> Surya" \
-            "<b>Version:</b> 4.14-OxygenOS" \
-            "<b>Builder:</b> Mahiru" \
-            "<b>Notes:</b> lyan kontol" \
-            "" \
-            "Leave a comment below if encountered any bugs!"
-}
-
-makekernel
-
