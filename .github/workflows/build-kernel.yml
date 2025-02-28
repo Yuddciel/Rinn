@@ -19,14 +19,14 @@ jobs:
 
       - name: Run standard build script
         run: |
-          export KBUILD_BUILD_USER=xradens
+          export KBUILD_BUILD_USER=mahironn
           export KBUILD_BUILD_HOST=android-build
           source build.sh
           echo "ZIPNAME=${ZIPNAME}" >> $GITHUB_ENV
 
       - name: Run KSU build script
         run: |
-          export KBUILD_BUILD_USER=xradens
+          export KBUILD_BUILD_USER=mahironn
           export KBUILD_BUILD_HOST=android-build
           source build.sh --su
           echo "ZIPNAME_KSU=${ZIPNAME}" >> $GITHUB_ENV
@@ -47,19 +47,19 @@ jobs:
         run: |
           BUILD_DATE="$(date '+%H:%M %d/%m/%Y')"
           HEAD="$(git rev-parse HEAD)"
-          HEAD_COMMIT="https://github.com/xradens/msm-4.14/commit/$HEAD"
+          HEAD_COMMIT="https://github.com/rinnsakaguchi/Rinn/commit/$HEAD"
           echo -e "${BUILD_DATE}\n\n${HEAD_COMMIT}" > caption.txt
 
       - name: Upload standard build to Telegram
         run: |
           caption=$(<caption.txt)
-          curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendDocument" \
-          -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+          curl -X POST "https://api.telegram.org/bot${{ secrets.7485743487:AAEKPw9ubSKZKit9BDHfNJSTWcWax4STUZs }}/sendDocument" \
+          -F chat_id=${{ secrets.-1002354747626 }} \
           -F document=@"${{ env.ZIPNAME }}" \
           -F caption="${caption}"
 
       - name: Upload KSU build to Telegram
         run: |
-          curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendDocument" \
-          -F chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+          curl -X POST "https://api.telegram.org/bot${{ secrets.7485743487:AAEKPw9ubSKZKit9BDHfNJSTWcWax4STUZs }}/sendDocument" \
+          -F chat_id=${{ secrets.-1002354747626 }} \
           -F document=@"${{ env.ZIPNAME_KSU }}"
