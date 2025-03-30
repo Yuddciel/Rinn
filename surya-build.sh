@@ -14,8 +14,8 @@ ANYKERNEL="${HOME}"/anykernel
 LOGS="${HOME}"/${CHEAD}.log
 
 # Repo URL
-ANYKERNEL_REPO="https://github.com/azrim/anykernel3.git"
-ANYKERNEL_BRANCH="master"
+ANYKERNEL_REPO="https://github.com/Yuddciel/AnyKernel3.git"
+ANYKERNEL_BRANCH="FSociety"
 
 # Repo info
 PARSE_BRANCH="$(git rev-parse --abbrev-ref HEAD)"
@@ -100,7 +100,7 @@ patch_config() {
 # Costumize
 patch_config
 versioning
-KERNEL="[TEST]-SiLonT"
+KERNEL="SAO:[Kirito}"
 DEVICE="Surya"
 KERNELNAME="${KERNEL}-${DEVICE}-${KERNELTYPE}-$(date +%y%m%d-%H%M)"
 TEMPZIPNAME="${KERNELNAME}-unsigned.zip"
@@ -124,7 +124,7 @@ build_failed() {
 
 # Building
 makekernel() {
-    echo "azrim@Hearthaka" > "$KERNEL_DIR"/.builderdata
+    echo "mahiro@turuu" > "$KERNEL_DIR"/.builderdata
     export PATH="${COMP_PATH}"
     make O=out ARCH=arm64 ${DEFCONFIG}
     if [[ "${REGENERATE_DEFCONFIG}" =~ "true" ]]; then
