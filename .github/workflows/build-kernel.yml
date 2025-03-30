@@ -31,7 +31,7 @@ jobs:
         run: |
           export KBUILD_BUILD_USER=nobody
           export KBUILD_BUILD_HOST=android-build
-          source build.sh --su
+          source surya-build.sh --su
           echo "ZIPNAME_KSU=${ZIPNAME}" >> $GITHUB_ENV
 
       - name: Upload standard artifact
